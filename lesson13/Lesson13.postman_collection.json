@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "6f75de02-e8a3-4e78-87c7-18fd768fc730",
+		"name": "Lesson13",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32197217",
+		"_collection_link": "https://gold-crescent-660827.postman.co/workspace/Typescript~1bebc2c6-19f6-405d-8f16-533f4246bd59/collection/32197217-6f75de02-e8a3-4e78-87c7-18fd768fc730?action=share&source=collection_link&creator=32197217"
+	},
+	"item": [
+		{
+			"name": "image upload with breed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Image ID is created\", function () {",
+							"    const responseJson = pm.response;",
+							"    pm.expect(responseJson.json().id).to.not.be.empty;",
+							"    pm.collectionVariables.set(\"imageId\", responseJson.json().id);",
+							"    pm.collectionVariables.set(\"sub_id\", responseJson.json().sub_id);",
+							"});",
+							"    pm.test(\"File name is set\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.original_filename).to.equal(\"Abyssinian_cat1.jpeg\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/oliavashchenko/Downloads/Abyssinian_cat1.jpeg"
+						},
+						{
+							"key": "sub_id",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "breed_ids",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "sub_id",
+							"value": "ruddy",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/images/upload",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get uploaded image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Image Id check\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var imageId = pm.variables.get('imageId');",
+							"    if (imageId) {",
+							"        pm.expect(jsonData.id, \"Response 'id' does not match request variable {{imageId}} (\" + imageId + \")\").to.eql(imageId);",
+							"    } else {",
+							"        pm.expect(jsonData.id, \"Response 'id' is empty or not a string\").to.be.a('string').and.not.empty;",
+							"    }",
+							"});       "
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/images/{{imageId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"{{imageId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set favourites to Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body message is SUCCESS\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"SUCCESS\");",
+							"});",
+							"pm.test(\"Body id exists and is a number\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"id\");",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"image_id\": \"{{imageId}}\",\n  \"sub_id\": \"{{sub_id}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/favourites",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"favourites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Favourited Images",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Set favouriteId and user_id\", function() {",
+							"    var json = pm.response.json();",
+							"    pm.collectionVariables.set(\"favouriteId\", json[2].id);",
+							"    pm.collectionVariables.set(\"user_id\", json[2].user_id);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/favourites",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"favourites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete favourite for image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Checked message text\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"SUCCESS\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/favourites/{{favouriteId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"favourites",
+						"{{favouriteId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set vote to a uloaded image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Checked message text\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"SUCCESS\");",
+							"});",
+							"pm.test(\"Checked country code value\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.country_code).to.eql(\"UA\");",
+							"});",
+							"pm.test(\"Set vote id\", function() {",
+							"    var json = pm.response.json();",
+							"    pm.collectionVariables.set(\"voteId\", json.id);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"image_id\": \"{{imageId}}\",\n\"sub_id\": \"{{sub_id}}\",\n\"value\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/votes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"votes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get vote",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Vote Id checked\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var voteId = pm.variables.get('voteId');",
+							"    if (voteId) {",
+							"        pm.expect(jsonData.id, \"Response 'id' match request variable {{voteId}} (\" + voteId + \")\").to.eql(Number(voteId));",
+							"    } else {",
+							"        pm.expect(jsonData.id, \"Response 'id' is empty or not a string\").to.be.a('string').and.not.empty;",
+							"    }",
+							"});",
+							"pm.test(\"sub_id checked\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var sub_id = pm.variables.get('sub_id');",
+							"    if (sub_id) {",
+							"        pm.expect(jsonData.sub_id, \"Response 'sub_id' match request variable {{sub_id}} (\" + sub_id + \")\").to.eql(String(sub_id));",
+							"    } else {",
+							"        pm.expect(jsonData.sub_id, \"Response 'sub_id' is empty or not a string\").to.be.a('string').and.not.empty;",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/votes/{{voteId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"votes",
+						"{{voteId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete image Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204 and body is empty\", function () {",
+							"    pm.response.to.have.status(204);",
+							"    pm.expect(pm.response.text()).to.be.empty;",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"No Content\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/images/{{imageId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"{{imageId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "live_v9GX65OCUqBIiSKnP4wLQVFFrW6QL3VwxhSVIq3HzE15OPYBCgkF7JyszKwlBXma",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "imageId",
+			"value": ""
+		},
+		{
+			"key": "BreedObject",
+			"value": ""
+		},
+		{
+			"key": "BreedId",
+			"value": ""
+		},
+		{
+			"key": "sub_id",
+			"value": ""
+		},
+		{
+			"key": "favouriteId",
+			"value": ""
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "voteId",
+			"value": ""
+		}
+	]
+}
