@@ -1,0 +1,38 @@
+ТЕСТ №1 «Обираємо моторне мастило» CSS
+Заходимо на сайт <https://avtozvuk.ua/>:
+Клікаємо на кнопку <.search-form__toggle>
+У модальному вікні серча <.multi-input> вводимо «oil»
+Натискаємо на кнопку <.multi-header [type="submit"]>
+
+Результати пошуку для «oil» сторінка відображається:
+Клік на продукт  <.product-view-title [href="/kroon-oil-presteza-msp-5w-30-5l/p175390"]>
+Прочитаємо Опис продукта, клік на вкладку «Опис» <.aside__flex.aside-tabs ul li:nth-child(2)>
+Обираємо обєм мастила, натискаємо <.features-aside  a:nth-child(4)>
+Натискаємо на кнопку «Купити»
+
+ТЕСТ №2 «Обираємо масляний фільтр» CSS
+Натискаємо на вкладку «Масляні фільтри» <.related-products__tabs-item [data-category-id="422"]>
+Клікаємо на зображення обраного продукта <.product-view__inner .product-view-header__wrap-img [href="/jakoparts-j1311035/p334826»]> 
+Натискаємо на кнопку «Купити» <.features-aside .features-btn>
+Відкриваємо Корзину клік на кнопку Корзина <.header__controls [href="/cart»]>
+Натискаємо на кнопку «Оформити» <.app-order-summary.cart-summary-widget [type="button»]>
+Перевіряємо додані товари в замовленні: [href="/kroon-oil-presteza-msp-5w-30-37462-15l/p979556»], [href="/jakoparts-j1311035/p334826"]
+
+ТЕСТ №3 Xpath
+Заходимо на сайт <https://avtozvuk.ua/>:
+Натискаємо на кнопку «Акції» <//a[contains(@class, 'link--red')]>
+Натискаємо на кнопку «Знижки» <//li/a[@href='/promos/type4']>
+Обираємо опцію новин акцій <//*/article/a[@href='/promo/537']>
+Обираємо опцію продукта, акумулятор <//div[@class='product-view-header__wrap-img']/a[@href='/exide-6st-61-aze-premium-ea612/p115134‘]>
+Перевіряємо наявність товару у «Київ, с. Гатне»  знайти опцію <//a[text()='Киев, с. Гатное ']>
+
+ТЕСТ №4 Xpath
+Заходимо на сайт <https://avtozvuk.ua/>:
+Клікаємо на лінку Вхід <//span[text()='Вход']>
+Клікаємо на поле <//input[@id='v-0-0']> і вводимо телефонний номер «+38 (669) 978-08-00»
+Нажимаємо на кнопку «Далі» <//button[@type='button'][contains(@class,'app-button')]>
+Перевіряємо повідомлення про помилку «Такого номера не існує…» <//div[text()='Такий номер не зареєстрований у системі. Будь-ласка, введіть інший номер або зареєструйтесь‘]>
+
+ 
+
+ 
