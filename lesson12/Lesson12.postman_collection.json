@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "c7462976-09ba-41d6-909c-a20202d5c06c",
+		"name": "Lesson12",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32197217",
+		"_collection_link": "https://gold-crescent-660827.postman.co/workspace/Typescript~1bebc2c6-19f6-405d-8f16-533f4246bd59/collection/32197217-c7462976-09ba-41d6-909c-a20202d5c06c?action=share&source=collection_link&creator=32197217"
+	},
+	"item": [
+		{
+			"name": "Grab a random 20 jokes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Body is an array of 20 jokes\", function () {",
+							"    pm.expect(Array.isArray(jsonData), \"Response should be an array\").to.be.true;",
+							"    pm.expect(jsonData.length, \"Should return 20 jokes\").to.equal(20);",
+							"});",
+							"pm.test(\"Each joke has one of types\", function () {",
+							"    var allowedTypes = [\"general\", \"programming\", \"knock-knock\", \"dad\"];   ",
+							"});",
+							"pm.test(\"Each id is a unique number\", function () {",
+							"    var ids = jsonData.map(function (j) { return j.id; });",
+							"    var unique = new Set(ids);",
+							"    pm.expect(unique.size, \"IDs should be unique\").to.equal(ids.length);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/random/20",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"random",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Grab 10 jokes by type general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"const body = pm.response.json();",
+							"pm.test(\"Every item.type === 'general'\", function () {",
+							"    pm.expect(Array.isArray(body)).to.be.true;",
+							"    body.forEach(function (item, index) {",
+							"        pm.expect(item.type, \"type mismatch at index \" + index).to.eql(\"general\");",
+							"    });",
+							"});",
+							"pm.test(\"Body is an array of 10 jokes\", function () {",
+							"    pm.expect(Array.isArray(body), \"Response should be an array\").to.be.true;",
+							"    pm.expect(body.length, \"Should return 10 jokes\").to.equal(10);",
+							"});",
+							"pm.test(\"Each item has required fields with correct types\", function () {",
+							"    body.forEach(function (item, index) {",
+							"        pm.expect(item).to.have.property(\"type\");",
+							"        pm.expect(item.type).to.be.a(\"string\");",
+							"        pm.expect(item).to.have.property(\"setup\");",
+							"        pm.expect(item.setup).to.be.a(\"string\");",
+							"        pm.expect(item).to.have.property(\"punchline\");",
+							"        pm.expect(item.punchline).to.be.a(\"string\");",
+							"        pm.expect(item).to.have.property(\"id\");",
+							"        pm.expect(item.id).to.be.a(\"number\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/general/ten",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"general",
+						"ten"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Grab joke by Id 33",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ID is 33\", function () {",
+							"    const json = pm.response.json();",
+							"    pm.expect(json).to.be.an(\"object\");",
+							"    pm.expect(json.id, \"Expected id to equal 33\").to.eql(33);",
+							"});",
+							"",
+							"pm.test(\"Response has required fields with correct types\", function () {",
+							"    const json = pm.response.json();",
+							"    pm.expect(json).to.have.property(\"type\").that.is.a(\"string\");",
+							"    pm.expect(json).to.have.property(\"setup\").that.is.a(\"string\");",
+							"    pm.expect(json).to.have.property(\"punchline\").that.is.a(\"string\");",
+							"    pm.expect(json).to.have.property(\"id\").that.is.a(\"number\");",
+							"});",
+							"pm.test(\"Punchline contains 'impossible'\", function () {",
+							"    const json = pm.response.json();",
+							"    pm.expect(json.punchline).to.include(\"impossible\");",
+							"});",
+							"pm.test(\"Type is 'knock-knock'\", function () {",
+							"    const json = pm.response.json();",
+							"    pm.expect(json.type, \"Expected type to equal 'knock-knock'\").to.eql(\"knock-knock\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/33",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"33"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"key": "localHost",
+			"value": ""
+		}
+	]
+}
