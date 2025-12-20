@@ -1,0 +1,35 @@
+{
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "eslint.config.mjs",
+    "./build/**/*",
+    "./node_modules/**/*"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ES6",
+    "lib": [
+      "ESNext",
+      "es6",
+      "DOM"
+    ],                                            /* Specify library files to be included in the compilation. */
+    "module": "ESNext", 
+    "rootDir": ".",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  }
+}
