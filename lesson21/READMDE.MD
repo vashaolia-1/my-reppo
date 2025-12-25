@@ -1,0 +1,1 @@
+POM, components, elements and fixtures Added test reports
