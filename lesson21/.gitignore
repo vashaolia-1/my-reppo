@@ -1,0 +1,9 @@
+node_modules/
+.vscode/
+.idea/
+build/
+
+# Playwright
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
