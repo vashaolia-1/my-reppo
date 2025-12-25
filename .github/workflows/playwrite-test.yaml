@@ -2,7 +2,7 @@ name: Playwright CI Tests
 
 on:
   push:
-    branches: [main, lesson22]
+    branches: [main, master, lesson22]
   pull_request:
     branches: [main]
 
