@@ -59,7 +59,7 @@ jobs:
         name: upload mochawesome-report
         path: ${{ env.BUILD_FOLDER }}/mochawesome-report
         retention-days: 30
-     - name: Generate Allure Single-file report
+    - name: Generate Allure Single-file report
       run: |
         npx allure generate allure-results --single-file --clean -o allure-report-single-file
       working-directory: ${{ env.BUILD_FOLDER }}
