@@ -1,0 +1,12 @@
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+.vscode/
+.idea/
+build/
+.github/workflows
+cookie.json
+allure*/
