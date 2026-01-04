@@ -53,12 +53,12 @@ jobs:
         path: ${{ env.BUILD_FOLDER }}/test-results
         retention-days: 30
     
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: upload mochawesome-report
-        path: ${{ env.BUILD_FOLDER }}/mochawesome-report
-        retention-days: 30
+    # - uses: actions/upload-artifact@v4
+    #   if: ${{ !cancelled() }}
+    #   with:
+    #     name: upload mochawesome-report
+    #     path: ${{ env.BUILD_FOLDER }}/mochawesome-report
+    #     retention-days: 30
         
     - name: Generate Allure Single-file report
       run: |
