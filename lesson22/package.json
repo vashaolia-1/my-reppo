@@ -1,5 +1,5 @@
 {
-  "name": "lesson21",
+  "name": "lesson22",
   "version": "1.0.0",
   "description": "html reports",
   "homepage": "https://github.com/vashaolia-1/my-reppo#readme",
@@ -14,7 +14,21 @@
   "author": "Olia Vashchenko",
   "type": "commonjs",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {"test": "eslint . && playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:category": "playwright test --grep @category",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "playwright:install": "playwright install --with-deps",
+    "allure:generate": "allure generate allure-results --clean",
+    "allure:open": "allure open allure-report",
+    "allure:serve": "allure serve allure-results",
+    "report:open": "playwright show-report",
+    "ci:test": "playwright test --reporter=list,allure-playwright,html,junit"},
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@playwright/test": "^1.57.0",
@@ -36,3 +50,4 @@
     "playwright": "^1.57.0"
   }
 }
+
