@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
-      BUILD_FOLDER: /lesson_22
+      BUILD_FOLDER: ./lesson22
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
